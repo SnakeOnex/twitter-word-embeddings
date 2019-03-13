@@ -8,7 +8,7 @@ def clean(tweet):
     
     words = []
     for word in tweet.split(' '):
-        if not validators.url(word) and word != "rt" and word != " ":
+        if not validators.url(word) and word != "rt" and word != " " and len(word) > 0:
             words.append(word.strip())
 
     tweet = " ".join(words)
@@ -52,5 +52,5 @@ myStream = tweepy.Stream(auth=api.auth, listener=myStreamListener)
 
 
 
-myStream.filter(track=['is', 'a', 'the'], languages=['en'])
+myStream.filter(track=['is', 'a', 'the', 'with', 'by'], languages=['en'])
 
