@@ -29,10 +29,12 @@ class Word2Vec:
         self.iteration = iteration
         self.initial_lr = initial_lr
 
+        self.device = torch.device('cpu')
         self.skip_gram_model = SkipGramModel(self.emb_size, self.emb_dimension)
         self.use_cuda = torch.cuda.is_available()
         if self.use_cuda:
             self.skip_gram_model.cuda()
+            self.device = torch.device('cuda')
         
         # pytorch way of getting an optimizer
         self.optimizer = torch.optim.SGD(self.skip_gram_model.parameters(), lr=self.initial_lr)
@@ -60,9 +62,9 @@ class Word2Vec:
             # vector of context words
             pos_v = [pair[1] for pair in pos_pairs]
 
-            pos_u = torch.LongTensor(pos_u)
-            pos_v = torch.LongTensor(pos_v)
-            neg_v = torch.LongTensor(neg_v)
+            pos_u = torch.LongTensor(pos_u, device=self.device)
+            pos_v = torch.LongTensor(pos_v, device=self.device)
+            neg_v = torch.LongTensor(neg_v, device=self.device)
 
             self.optimizer.zero_grad()
             loss = self.skip_gram_model.forward(pos_u, pos_v, neg_v)

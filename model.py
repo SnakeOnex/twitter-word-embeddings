@@ -39,7 +39,7 @@ class SkipGramModel(torch.nn.Module):
         neg_score = F.logsigmoid(-1 * neg_score)
         return -1 * (torch.sum(score) + torch.sum(neg_score))
 
-    def save_embedding(self, id2word, file_name):
+    def save_embedding(self, id2word, file_name, use_cuda):
         
         if use_cuda:
             embedding = self.u_embeddings.weight.cpu().data.numpy()
