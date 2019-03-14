@@ -14,7 +14,7 @@ class Word2Vec:
             emb_dimension=100,
             batch_size=50,
             window_size = 5,
-            iteration=5,
+            iteration=1,
             initial_lr=0.025,
             min_count=5):
 
