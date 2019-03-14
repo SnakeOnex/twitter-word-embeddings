@@ -45,14 +45,14 @@ class Word2Vec:
         if self.use_cuda:
             self.skip_gram_model.cuda()
             self.device = torch.device('cuda')
-        
+
         # pytorch way of getting an optimizer
         self.optimizer = torch.optim.SGD(self.skip_gram_model.parameters(), lr=self.initial_lr)
 
     def train(self):
         # number of pairs in one epoch
         pair_count = self.data.evaluate_pair_count(self.window_size)
-            
+
         # number of batches in one epoch
         batch_count = self.iteration * pair_count / self.batch_size
 
@@ -61,7 +61,7 @@ class Word2Vec:
         for i in process_bar:
             # batch of word pairs
             pos_pairs = self.data.get_batch_pairs(self.batch_size, self.window_size)
-            
+
             # vector of pairs that will get updated negatively
             # maybe its not pairs but words
             neg_v = self.data.get_neg_v_neg_sampling(pos_pairs, 5)
@@ -72,16 +72,16 @@ class Word2Vec:
             # vector of context words
             pos_v = [pair[1] for pair in pos_pairs]
 
-            pos_u = torch.LongTensor(pos_u, device=self.device)
-            pos_v = torch.LongTensor(pos_v, device=self.device)
-            neg_v = torch.LongTensor(neg_v, device=self.device)
+            pos_u = torch.LongTensor(pos_u).to(self.device)
+            pos_v = torch.LongTensor(pos_v).to(self.device)
+            neg_v = torch.LongTensor(neg_v).to(self.device)
 
             self.optimizer.zero_grad()
             loss = self.skip_gram_model.forward(pos_u, pos_v, neg_v)
             loss.backward()
             self.optimizer.step()
 
-            process_bar.set_description("Loss: %0.8f, lr: %0.6f" % 
+            process_bar.set_description("Loss: %0.8f, lr: %0.6f" %
                     (loss.item(), self.optimizer.param_groups[0]['lr']))
 
             if i * self.batch_size % 1e5 == 0:
