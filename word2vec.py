@@ -2,6 +2,7 @@ from input_data import InputData
 from model import SkipGramModel
 import numpy
 import torch
+import os
 
 from tqdm import tqdm
 import sys
@@ -20,6 +21,7 @@ class Word2Vec:
         self.data = InputData(input_file_name, min_count)
         self.output_file_name = output_file_name
 
+
         # number of unique words
         self.emb_size = len(self.data.word2id)
 
@@ -31,7 +33,15 @@ class Word2Vec:
 
         self.device = torch.device('cpu')
         self.skip_gram_model = SkipGramModel(self.emb_size, self.emb_dimension)
+
+
+        if os.path.isfile("saved_model"):
+            print("loading model")
+            self.skip_gram_model.load_state_dict(torch.load("saved_model"))
+
+
         self.use_cuda = torch.cuda.is_available()
+
         if self.use_cuda:
             self.skip_gram_model.cuda()
             self.device = torch.device('cuda')
@@ -78,7 +88,10 @@ class Word2Vec:
                 lr = self.initial_lr * (1.0 - 1.0 * i / batch_count)
                 for param_group in self.optimizer.param_groups:
                     param_group['lr'] = lr
-        self.skip_gram_model.save_embedding(self.data.id2word, self.output_file_name)
+
+        torch.save(self.skip_gram_model.state_dict(), "saved_model")
+        print("saving")
+        self.skip_gram_model.save_embedding(self.data.id2word, self.output_file_name, self.use_cuda)
 
 
 if __name__ == '__main__':
