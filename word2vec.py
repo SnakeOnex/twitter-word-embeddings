@@ -11,10 +11,10 @@ class Word2Vec:
     def __init__(self,
             input_file_name,
             output_file_name,
-            emb_dimension=100,
-            batch_size=50,
-            window_size = 5,
-            iteration=1,
+            emb_dimension=64,
+            batch_size=32,
+            window_size = 6,
+            iteration=8,
             initial_lr=0.025,
             min_count=5):
 
