@@ -1,7 +1,9 @@
 from flask import Flask, jsonify
+from flask_cors import CORS
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 app = Flask(__name__)
+CORS(app)
 
 def loadEmbs():
     f = open("embs.txt")
