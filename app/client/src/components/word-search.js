@@ -10,7 +10,7 @@ class WordSearch extends React.Component {
   }
 
   handleClick () {
-	  axios.get('http://192.168.10.147:5000/retard')
+	axios.get('http://194.182.80.90:5000/nigger')
 	    .then(response => console.log(response))
   }
 

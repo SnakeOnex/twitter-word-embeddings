@@ -23,9 +23,13 @@ def loadEmbs():
     embeddings = np.array(embeddings)
     return embeddings, words, word2id
 
+
+
 embs = []
 words = []
 word2id = dict()
+
+embs, words, word2id = loadEmbs()
 
 @app.route('/')
 def display():
