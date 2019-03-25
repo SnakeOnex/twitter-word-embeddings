@@ -49,7 +49,7 @@ def getMember(word):
     d = zip(words, d)
     d = sorted(d, key=lambda x:x[1], reverse=True)
     similar_words = []
-    for w in d[:10]:
+    for w in d[1:11]:
         similar_words.append(w)
     return jsonify(similar_words)
 
