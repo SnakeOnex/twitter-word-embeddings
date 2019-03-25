@@ -1,4 +1,15 @@
-.container {
-  display: flex;
-  justify-content: center;
+.row {
+  padding: 10px 0;
+}
+
+.word-search {
+  margin: 0 auto;
+}
+
+.embedding-table {
+  margin: 0 auto;
+}
+
+h2 {
+  text-align: center;
 }

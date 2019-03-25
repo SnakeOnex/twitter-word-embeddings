@@ -1,12 +1,12 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import WordSearch from "./word-search.js";
+import App from "./app.js";
 
 const Router = () => (
   <BrowserRouter>
 	<Switch>
-	  <Route exact path="/" component={WordSearch} />
-	  <Route component={WordSearch} />
+	  <Route exact path="/" component={App} />
+	  <Route component={App} />
 	</Switch>
   </BrowserRouter>
 )
