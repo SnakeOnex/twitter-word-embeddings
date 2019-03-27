@@ -23,23 +23,7 @@ for i, line in enumerate(f):
 
 embeddings = np.array(embeddings)
 
-#tsne = TSNE(n_components=2, random_state=0)
-#Y = tsne.fit_transform(embeddings[:50])
+tsne = TSNE(n_components=2, random_state=0)
+Y = tsne.fit_transform(embeddings[:50])
 
-Y = np.load("tsne.npy")
-
-to_plot = ['work', 'hard']
-
-points = []
-
-plt.axis((-150, 150, -150, 150))
-plt.scatter(Y[:, 0], Y[:, 1])
-for label, x, y in zip(words, Y[:, 0], Y[:, 1]):
-    if label in to_plot:
-        points.append([x, y])
-        plt.annotate(label, xy=(x, y), xytext=(0, 0), textcoords='offset points')
-
-print(points)
-
-plt.show()
-
+np.save("tsne.npy", Y)
