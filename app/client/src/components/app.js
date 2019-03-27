@@ -14,10 +14,10 @@ class App extends React.Component {
   }
 
   render() {
-	console.log(this.state.embs);
 	return (
 	  <div className="container">
-		<div className="row">
+		<h2>Enter a word</h2>
+		<div className="row word-search-wrapper">
 		  <WordSearch getEmbs={this.getEmbs} />
 		</div>
 		<div className="row">

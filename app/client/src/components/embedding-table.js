@@ -17,8 +17,8 @@ class EmbeddingTable extends React.Component {
 		  {this.props.embs.map((row) => {
 			return (
 			  <tr key={row[0]}>
-				<th> {row[0]} </th> 
-				<th> {row[1]} </th> 
+				<td> {row[0]} </td> 
+				<td> {row[1]} </td> 
 			  </tr>
 			);
 		  }

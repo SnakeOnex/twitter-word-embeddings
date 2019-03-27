@@ -31,16 +31,16 @@ class WordSearch extends React.Component {
 
   render() {
 	return (
-	  <form className="word-search" onSubmit={this.handleClick} >
-		<h2>Enter a word</h2>
+	  <form className="word-search form-group row" onSubmit={this.handleClick} >
 		<input 
+		  className="form-control col-sm-8"
 		  type="text"
 		  value={this.state.inputValue}
 		  onChange={e => this.updateInputValue(e)}
 		  required 
 		  placeholder="some word"
 		 />
-		<button type="submit" >Find similar</button>
+		<button type="submit" className="btn btn-primary col-sm-4">Find similar</button>
 	  </form>
 	);
   }
