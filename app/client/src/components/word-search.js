@@ -20,7 +20,7 @@ class WordSearch extends React.Component {
 	fetch("http://194.182.80.90:5000/" + this.state.inputValue) // Call the fetch function passing the url of the API as a parameter
 	.then((response) => response.json())
 	.then((responseJSON) => {
-	  console.log(responseJSON);
+	  console.log(responseJSON.embs);
 	  this.props.getEmbs(responseJSON);
 	})
 	.catch(function(error) {

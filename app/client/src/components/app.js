@@ -9,11 +9,17 @@ class App extends React.Component {
 
   getEmbs = embs => {
 	this.setState({
-	  embs: embs
+	  embs: embs,
+	  plot: {}
 	});
   }
 
   render() {
+	console.log(this.state.embs.length == 0);
+	console.log(this.state.embs);
+	let rndr = "nothing";
+	if (this.state.embs.length > 0)
+	  rndr = "similar";
 	return (
 	  <div className="container">
 		<h2>Enter a word</h2>
@@ -21,7 +27,7 @@ class App extends React.Component {
 		  <WordSearch getEmbs={this.getEmbs} />
 		</div>
 		<div className="row">
-		  <EmbeddingTable embs={this.state.embs} />
+		  {rndr == "similar" ? <EmbeddingTable embs={this.state.embs} /> : null }
 		</div>
 	  </div>
 	);
