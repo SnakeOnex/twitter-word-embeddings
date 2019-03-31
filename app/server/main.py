@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, json
 from flask_cors import CORS
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
@@ -37,7 +37,7 @@ embs, words, word2id = loadEmbs()
 def display():
     return "no word"
 
-"""@app.route("/<word>")
+""" @app.route("/<word>")
 def getMember(word):
     try:
         wid = word2id[word]
@@ -53,27 +53,19 @@ def getMember(word):
         similar_words.append(w)
     return jsonify(similar_words)
 """
-
 @app.route("/<word>")
 def getGay(word):
     rec_words = word.split('+')
     error_words = []
     emb_sum = []
-    
-    for rec_word in rec_words:
-        try:
-            wid = word2id[rec_word]
-        except:
-            error_words.append(rec_word)
-            continue;
 
-        embedding = embs[wid:wid+1]
-        if emb_sum == []:
-            emb_sum = embedding
-        else:
-            emb_sum += embedding
+    try:
+        wid = word2id[rec_words[0]]
+    except:
+        error_words.append(rec_word)
 
-    avg_arr = emb_sum / len(rec_words)
+    embedding = embs[wid:wid+1]
+
     d = cosine_similarity(embedding, embs)[0]
     d = zip(words, d)
     d = sorted(d, key=lambda x:x[1], reverse=True)
@@ -82,18 +74,31 @@ def getGay(word):
         similar_words.append(w)
 
     Xs = []
-    Ys= []
+    Ys = []
+    labels = []
 
-    if len(rec_words) > 1:
-        Y = np.load("tsne.npy")
+    if len(rec_words) > 0:
+        Y = np.load("tsne2.npy")
+        #Y = np.load("pca.npy")
+
+        print(rec_words)
+        print('retard' in words)
         for label, x, y in zip(words, Y[:, 0], Y[:, 1]):
-            Xs.append(x)
-            Ys.append(y)
+            if label == 'retard':
+                print("LOOOL")
+                
+            if label in rec_words:
+                print(label)
+                Xs.append(str(x))
+                Ys.append(str(y))
+                labels.append(label)
 
-    response = {"words": similar_words, "X": Xs, "Y": Ys}
+    response = {"words": similar_words, "X": Xs, "Y": Ys, "labels": labels}
+    jsonStr = json.dumps(response)
     #response = [similar_words, Xs, Ys]
 
-    return jsonify(str([similar_words, Xs]))
+    
+    return jsonify(jsonStr)
 
         
 
