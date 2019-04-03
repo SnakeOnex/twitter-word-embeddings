@@ -33,12 +33,32 @@ class App extends React.Component {
 	);
   }
 
+  getError() {
+	const err = this.state.embs.err;
+	return (
+	  <div className="alert alert-danger" style={{"margin": "0 auto"}} role="alert">
+	    Word {err[0]} has not been found!
+	  </div>
+	);
+  }
+
   render() {
-	let rndr = "nothing";
-	if (this.state.embs.words != null) {
-	  rndr = "similar";
+	let embs = this.state.embs;
+	console.log(embs);
+	let similar = false;
+	let error = false;
+	let plot = false;
+
+	if (Object.entries(embs).length !== 0 && embs.constructor === Object) {
+	  console.log("NFDSF")
+      if (embs.err.length == 0) {
+		similar = true;
+		console.log("ASDF");
+	  } else if (embs.err.length != 0) {
+		error = true;
+	  }
 	  if (this.state.embs.X.length > 1)
-		rndr = "plot";
+		plot = true;
 	}
 	return (
 	  <div className="container">
@@ -47,9 +67,10 @@ class App extends React.Component {
 		  <WordSearch getEmbs={this.getEmbs} />
 		</div>
 		<div className="row">
-		  {rndr == "similar" || rndr == "plot" ? <EmbeddingTable embs={this.state.embs.words} /> : null }
+		  {similar ? <EmbeddingTable embs={this.state.embs.words} /> : null }
+		  {error ? this.getError() : null }
 		</div>
-		{rndr == "plot" ? this.getPlot() : null}
+		{plot ? this.getPlot() : null}
 	  </div>
 	);
   }

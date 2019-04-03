@@ -1,0 +1,24 @@
+.row {
+  padding: 10px 0;
+}
+
+.word-search {
+  margin: 0 auto;
+}
+
+.embedding-table {
+  margin: 0 auto;
+}
+
+h2 {
+  margin-bottom: 0;
+  margin-top: 25px;
+}
+
+.container {
+  text-align: center;
+}
+
+.word-search-wrapper {
+  padding-top: 0;
+}
