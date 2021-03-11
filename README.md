@@ -1,6 +1,7 @@
 # Twitter word embeddings
+Project I made in the 4th year of high school.
 
-The goal is to take some tweets, then turn them into embeddings, that represent their semantic meaning and then create a website, that can after it is given a word display similar words.
+Script downloads a ton of english tweets from twitter, then turns them into embeddings using the Word2Vec algorithm. The project includes a webserver, that can be used to search through the embeddings. You search a specific word and the webserver finds 10 words with the most similar embeddings and displays them.
 
 ## Resources
 
